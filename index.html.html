@@ -1,0 +1,1608 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Digital Security Professional · Portfolio</title>
+    <style>
+        /* ─── CSS VARIABLES ─── */
+        :root {
+            --bg-body: #f0f2f6;
+            --bg-container: #ffffff;
+            --bg-card: #f8f9fc;
+            --bg-input: #f0f2f6;
+            --text-primary: #1a1a2e;
+            --text-secondary: #3a3a5a;
+            --text-muted: #7a7a9a;
+            --text-light: #5a5a7a;
+            --border-color: #eef0f4;
+            --border-light: #e8ecf2;
+            --shadow-color: rgba(0, 0, 0, 0.06);
+            --accent: #1a7a5a;
+            --accent-light: #eafaf3;
+            --accent-bg: #eafaf3;
+            --status-bg: #eafaf3;
+            --hack-bg: #f8f9fc;
+            --hack-border: #eef0f4;
+            --placeholder-bg: #e8ecf2;
+            --placeholder-color: #4a4a6a;
+            --url-hint-bg: rgba(255, 255, 255, 0.95);
+            --url-hint-border: #e8ecf2;
+            --success-color: #1a7a5a;
+            --blur-overlay: rgba(0, 0, 0, 0.4);
+            --blur-filter: blur(6px);
+            --light-blur: blur(2px);
+        }
+
+        [data-theme="dark"] {
+            --bg-body: #0d0d1a;
+            --bg-container: #16162a;
+            --bg-card: #1e1e36;
+            --bg-input: #252545;
+            --text-primary: #e8e8f0;
+            --text-secondary: #b8b8d0;
+            --text-muted: #8a8aaa;
+            --text-light: #a0a0b8;
+            --border-color: #2a2a4a;
+            --border-light: #2a2a4a;
+            --shadow-color: rgba(0, 0, 0, 0.3);
+            --accent: #44ddaa;
+            --accent-light: #1a3a2a;
+            --accent-bg: #1a2a22;
+            --status-bg: #1a2a22;
+            --hack-bg: #1a1a30;
+            --hack-border: #2a2a4a;
+            --placeholder-bg: #2a2a4a;
+            --placeholder-color: #8a8aaa;
+            --url-hint-bg: rgba(22, 22, 42, 0.95);
+            --url-hint-border: #2a2a4a;
+            --success-color: #44ddaa;
+            --blur-overlay: rgba(0, 0, 0, 0.5);
+        }
+
+        /* ─── RESET ─── */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--bg-body);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            min-height: 100vh;
+            padding: 30px 20px;
+            color: var(--text-primary);
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: var(--bg-container);
+            border-radius: 24px;
+            padding: 40px 45px;
+            box-shadow: 0 20px 60px var(--shadow-color), 0 8px 24px var(--shadow-color);
+            border: 1px solid var(--border-color);
+            transition: background 0.3s ease, border 0.3s ease;
+        }
+
+        /* ─── TOP BAR ─── */
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 28px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--border-color);
+            transition: border 0.3s ease;
+        }
+
+        .top-bar-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .status-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--accent);
+            font-size: 14px;
+            font-weight: 500;
+            background: var(--status-bg);
+            padding: 8px 20px 8px 16px;
+            border-radius: 40px;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        .status-badge .dot {
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: pulseDot 2s infinite;
+            transition: background 0.3s ease;
+        }
+        @keyframes pulseDot {
+            0%,
+            100% {
+                opacity: 0.4;
+                transform: scale(0.8);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.1);
+            }
+        }
+
+        .top-bar-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .theme-toggle {
+            background: var(--bg-input);
+            border: 1px solid var(--border-light);
+            color: var(--text-muted);
+            padding: 8px 12px;
+            border-radius: 40px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-family: inherit;
+        }
+        .theme-toggle:hover {
+            border-color: var(--accent);
+            color: var(--text-primary);
+        }
+        .theme-toggle .label {
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .lang-toggle {
+            display: flex;
+            gap: 4px;
+            background: var(--bg-input);
+            padding: 4px;
+            border-radius: 40px;
+            border: 1px solid var(--border-light);
+            transition: background 0.3s ease, border 0.3s ease;
+        }
+        .lang-toggle button {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 13px;
+            font-weight: 500;
+            padding: 6px 18px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: inherit;
+        }
+        .lang-toggle button.active {
+            background: var(--bg-container);
+            color: var(--text-primary);
+            box-shadow: 0 2px 8px var(--shadow-color);
+        }
+        .lang-toggle button:hover:not(.active) {
+            color: var(--text-secondary);
+        }
+
+        /* ─── PROFILE HEADER ─── */
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+
+        .profile-photo {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            overflow: hidden;
+            border: 3px solid var(--bg-container);
+            outline: 2px solid var(--border-light);
+            box-shadow: 0 4px 16px var(--shadow-color);
+            background: var(--placeholder-bg);
+            transition: outline 0.3s ease, background 0.3s ease;
+        }
+        .profile-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .profile-photo .placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            font-weight: 600;
+            color: var(--placeholder-color);
+            transition: color 0.3s ease;
+        }
+
+        .title-group h1 {
+            font-size: 34px;
+            font-weight: 600;
+            color: var(--text-primary);
+            letter-spacing: -0.3px;
+            line-height: 1.2;
+            transition: color 0.3s ease;
+        }
+        .title-group h1 .handle {
+            color: var(--accent);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        .title-group .tagline {
+            color: var(--text-light);
+            font-size: 16px;
+            font-weight: 400;
+            margin-top: 4px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            transition: color 0.3s ease;
+        }
+        .title-group .tagline .sep {
+            color: var(--border-color);
+            transition: color 0.3s ease;
+        }
+        .title-group .tagline .badge-skill {
+            background: var(--accent-bg);
+            color: var(--accent);
+            padding: 3px 18px;
+            border-radius: 40px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        .success-rate {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--accent-bg);
+            color: var(--accent);
+            padding: 4px 16px;
+            border-radius: 40px;
+            font-size: 13px;
+            font-weight: 500;
+            margin-top: 6px;
+            border: 1px solid var(--border-light);
+            transition: background 0.3s ease, color 0.3s ease, border 0.3s ease;
+        }
+
+        /* ─── STATS ROW ─── */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 12px;
+            margin: 24px 0 30px;
+            background: var(--bg-card);
+            border-radius: 18px;
+            padding: 18px 24px;
+            border: 1px solid var(--border-color);
+            transition: background 0.3s ease, border 0.3s ease;
+        }
+        .stat-item {
+            text-align: center;
+        }
+        .stat-item .num {
+            color: var(--text-primary);
+            font-size: 26px;
+            font-weight: 600;
+            letter-spacing: -0.2px;
+            transition: color 0.3s ease;
+        }
+        .stat-item .num .accent {
+            color: var(--accent);
+            transition: color 0.3s ease;
+        }
+        .stat-item .label {
+            color: var(--text-muted);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            font-weight: 500;
+            margin-top: 2px;
+            transition: color 0.3s ease;
+        }
+
+        /* ─── BIO ─── */
+        .bio {
+            color: var(--text-secondary);
+            font-size: 16px;
+            line-height: 1.8;
+            margin-bottom: 32px;
+            padding: 20px 24px;
+            background: var(--bg-card);
+            border-radius: 16px;
+            border-left: 4px solid var(--accent);
+            transition: color 0.3s ease, background 0.3s ease, border 0.3s ease;
+        }
+        .bio strong {
+            color: var(--text-primary);
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        .bio .highlight-text {
+            color: var(--accent);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        .bio .social-hack {
+            display: inline-block;
+            background: var(--accent-bg);
+            color: var(--accent);
+            padding: 1px 12px;
+            border-radius: 40px;
+            font-weight: 500;
+            font-size: 14px;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        /* ─── SKILLS ─── */
+        .skills-section {
+            margin-bottom: 30px;
+        }
+        .skills-section .section-label {
+            color: var(--text-muted);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            transition: color 0.3s ease;
+        }
+        .skills-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .skill-tag {
+            background: var(--bg-card);
+            color: var(--text-secondary);
+            padding: 6px 22px;
+            border-radius: 40px;
+            font-size: 13px;
+            font-weight: 500;
+            border: 1px solid var(--border-color);
+            transition: background 0.3s ease, color 0.3s ease, border 0.3s ease;
+        }
+
+        /* ─── HACKS / PROOF ─── */
+        .hacks-section {
+            margin: 32px 0 28px;
+        }
+        .hacks-section .section-label {
+            color: var(--text-muted);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: color 0.3s ease;
+        }
+        .hacks-section .section-label .count {
+            background: var(--accent);
+            color: #fff;
+            font-size: 11px;
+            padding: 1px 14px;
+            border-radius: 40px;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+
+        .hacks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+        }
+
+        .hack-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            transition: 0.2s, background 0.3s ease, border 0.3s ease;
+            box-shadow: 0 2px 8px var(--shadow-color);
+        }
+        .hack-card:hover {
+            border-color: var(--accent);
+            box-shadow: 0 4px 16px var(--shadow-color);
+        }
+
+        /* ─── PROOF IMAGE ─── */
+        .hack-card .hack-image {
+            width: 100%;
+            height: 260px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+            background: #1a1a2e;
+            transition: background 0.3s ease;
+        }
+
+        .hack-card .hack-image .proof-container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #0d0d1a;
+        }
+
+        /* ─── DASHBOARD ─── */
+        .hack-card .hack-image .dashboard-bg {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            background: #0d0d1a;
+            position: relative;
+        }
+
+        .hack-card .hack-image .dashboard-bg .db-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 16px;
+            background: #16162a;
+            border-bottom: 1px solid #2a2a4a;
+            flex-shrink: 0;
+        }
+        .hack-card .hack-image .dashboard-bg .db-top .db-title {
+            color: #44ddaa;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .hack-card .hack-image .dashboard-bg .db-top .db-title .brand-icon {
+            width: 18px;
+            height: 18px;
+            display: inline-block;
+        }
+        .hack-card .hack-image .dashboard-bg .db-top .db-title .brand-icon svg {
+            width: 100%;
+            height: 100%;
+            fill: #44ddaa;
+        }
+        .hack-card .hack-image .dashboard-bg .db-top .db-status {
+            color: #44ddaa;
+            font-size: 9px;
+            background: rgba(68, 221, 170, 0.15);
+            padding: 2px 10px;
+            border-radius: 20px;
+        }
+
+        /* Chat list - names VISIBLE, messages BLURRED */
+        .hack-card .hack-image .dashboard-bg .db-chats {
+            flex: 1;
+            padding: 6px 10px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .hack-card .hack-image .dashboard-bg .db-chats .chat-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 6px 8px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 8px;
+            border-left: 2px solid rgba(68, 221, 170, 0.15);
+        }
+
+        /* AVATAR - BLURRED */
+        .hack-card .hack-image .dashboard-bg .db-chats .chat-item .avatar {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: #2a2a4a;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-size: 12px;
+            filter: blur(5px);
+            -webkit-filter: blur(5px);
+            transition: filter 0.3s ease;
+        }
+
+        /* NAME - VISIBLE */
+        .hack-card .hack-image .dashboard-bg .db-chats .chat-item .info .name {
+            color: #ddd;
+            font-size: 11px;
+            font-weight: 500;
+            filter: none !important;
+            -webkit-filter: none !important;
+        }
+
+        /* MESSAGE CONTENT - BLURRED (sensitive chat content) */
+        .hack-card .hack-image .dashboard-bg .db-chats .chat-item .info .msg {
+            color: #888;
+            font-size: 9px;
+            margin-top: 1px;
+            filter: blur(4px);
+            -webkit-filter: blur(4px);
+            transition: filter 0.3s ease;
+            user-select: none;
+        }
+
+        /* TIME - VISIBLE */
+        .hack-card .hack-image .dashboard-bg .db-chats .chat-item .time {
+            color: #666;
+            font-size: 8px;
+            flex-shrink: 0;
+            filter: none !important;
+            -webkit-filter: none !important;
+        }
+
+        /* ─── OVERLAY ─── */
+        .hack-card .hack-image .blur-overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 6px;
+            padding: 20px;
+            pointer-events: none;
+            background: rgba(0, 0, 0, 0.15);
+        }
+
+        .hack-card .hack-image .blur-overlay .blur-icon {
+            width: 48px;
+            height: 48px;
+            opacity: 0.4;
+            filter: blur(2px);
+            -webkit-filter: blur(2px);
+        }
+        .hack-card .hack-image .blur-overlay .blur-icon svg {
+            width: 100%;
+            height: 100%;
+            fill: #ffffff;
+        }
+
+        .hack-card .hack-image .blur-overlay .blur-text {
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            text-align: center;
+            text-shadow: 0 2px 12px rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.6);
+            padding: 4px 20px;
+            border-radius: 40px;
+            backdrop-filter: blur(2px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            filter: none !important;
+            -webkit-filter: none !important;
+        }
+
+        .hack-card .hack-image .blur-overlay .blur-sub {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-align: center;
+            text-transform: uppercase;
+            filter: none !important;
+            -webkit-filter: none !important;
+        }
+
+        .hack-card .hack-image .redacted-stamp {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-25deg);
+            color: rgba(255, 50, 50, 0.06);
+            font-size: 72px;
+            font-weight: 900;
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            pointer-events: none;
+            z-index: 0;
+            text-shadow: 0 0 40px rgba(255, 0, 0, 0.02);
+        }
+
+        .hack-card .hack-image .platform-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            padding: 4px 14px;
+            border-radius: 40px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            z-index: 2;
+            filter: none !important;
+            -webkit-filter: none !important;
+        }
+
+        .hack-card .hack-image .verified-badge {
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            background: var(--accent);
+            color: #fff;
+            padding: 3px 14px;
+            border-radius: 40px;
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: background 0.3s ease;
+            z-index: 2;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            filter: none !important;
+            -webkit-filter: none !important;
+        }
+
+        .hack-card .hack-body {
+            padding: 16px 20px 18px;
+        }
+        .hack-card .hack-body .hack-title {
+            color: var(--text-primary);
+            font-size: 16px;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        .hack-card .hack-body .hack-desc {
+            color: var(--text-light);
+            font-size: 13px;
+            line-height: 1.5;
+            margin-top: 4px;
+            transition: color 0.3s ease;
+        }
+        .hack-card .hack-body .hack-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid var(--border-color);
+            font-size: 12px;
+            color: var(--text-muted);
+            transition: border 0.3s ease, color 0.3s ease;
+        }
+        .hack-card .hack-body .hack-meta .status-success {
+            color: var(--accent);
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        .hack-card .hack-body .hack-meta .status-success::before {
+            content: '✓ ';
+        }
+
+        /* ─── PROJECTS ─── */
+        .projects-section {
+            margin: 28px 0;
+        }
+        .projects-section .section-label {
+            color: var(--text-muted);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            transition: color 0.3s ease;
+        }
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 14px;
+        }
+        .project-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 18px 20px;
+            border: 1px solid var(--border-color);
+            transition: background 0.3s ease, border 0.3s ease;
+        }
+        .project-card .p-name {
+            color: var(--text-primary);
+            font-size: 15px;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        .project-card .p-desc {
+            color: var(--text-light);
+            font-size: 13px;
+            margin-top: 4px;
+            line-height: 1.5;
+            transition: color 0.3s ease;
+        }
+        .project-card .p-tag {
+            display: inline-block;
+            margin-top: 8px;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--accent);
+            background: var(--accent-bg);
+            padding: 2px 14px;
+            border-radius: 40px;
+            font-weight: 600;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        /* ─── SOCIAL ─── */
+        .social-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 6px;
+            padding-top: 20px;
+            border-top: 2px solid var(--border-color);
+            transition: border 0.3s ease;
+        }
+        .social-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            padding: 7px 20px;
+            border-radius: 40px;
+            border: 1px solid var(--border-light);
+            transition: 0.2s, color 0.3s ease, border 0.3s ease, background 0.3s ease;
+            background: var(--bg-container);
+        }
+        .social-link:hover {
+            color: var(--text-primary);
+            border-color: var(--accent);
+            background: var(--bg-card);
+        }
+        .social-link .icon {
+            margin-right: 6px;
+        }
+
+        /* ─── FOOTER ─── */
+        .footer-note {
+            margin-top: 28px;
+            font-size: 12px;
+            color: var(--text-muted);
+            text-align: center;
+            border-top: 2px solid var(--border-color);
+            padding-top: 20px;
+            font-weight: 400;
+            transition: color 0.3s ease, border 0.3s ease;
+        }
+        .footer-note a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        .footer-note a:hover {
+            text-decoration: underline;
+        }
+
+        /* ─── URL HINT ─── */
+        .url-hint {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--url-hint-bg);
+            color: var(--text-muted);
+            font-size: 12px;
+            padding: 8px 20px;
+            border-radius: 40px;
+            border: 1px solid var(--url-hint-border);
+            font-family: 'SF Mono', 'Menlo', monospace;
+            box-shadow: 0 4px 16px var(--shadow-color);
+            backdrop-filter: blur(10px);
+            z-index: 999;
+            max-width: 90vw;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            transition: background 0.3s ease, color 0.3s ease, border 0.3s ease;
+        }
+        .url-hint span {
+            color: var(--accent);
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        /* ─── RESPONSIVE ─── */
+        @media (max-width: 768px) {
+            .container {
+                padding: 24px 18px;
+                border-radius: 16px;
+            }
+            .profile-header {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            .profile-photo {
+                width: 110px;
+                height: 110px;
+            }
+            .title-group h1 {
+                font-size: 26px;
+            }
+            .title-group .tagline {
+                justify-content: center;
+            }
+            .stats-row {
+                grid-template-columns: repeat(2, 1fr);
+                padding: 14px 16px;
+            }
+            .hacks-grid {
+                grid-template-columns: 1fr;
+            }
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            .bio {
+                font-size: 15px;
+                padding: 16px 18px;
+            }
+            .top-bar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .top-bar-left {
+                justify-content: center;
+            }
+            .top-bar-right {
+                justify-content: center;
+            }
+            .url-hint {
+                display: none;
+            }
+            .hack-card .hack-image {
+                height: 220px;
+            }
+        }
+        @media (max-width: 420px) {
+            .stats-row {
+                grid-template-columns: 1fr 1fr;
+                gap: 6px;
+            }
+            .stat-item .num {
+                font-size: 20px;
+            }
+            .container {
+                padding: 16px 12px;
+            }
+            .hack-card .hack-image {
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="content">
+
+            <!-- TOP BAR -->
+            <div class="top-bar">
+                <div class="top-bar-left">
+                    <div class="status-badge">
+                        <span class="dot"></span>
+                        <span id="statusText">● Activo · Aceptando Compromisos</span>
+                    </div>
+                </div>
+                <div class="top-bar-right">
+                    <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()">
+                        <span id="themeIcon">🌙</span>
+                        <span class="label" id="themeLabel">Oscuro</span>
+                    </button>
+                    <div class="lang-toggle">
+                        <button class="active" data-lang="en" onclick="setLang('en')">EN</button>
+                        <button data-lang="es" onclick="setLang('es')">ES</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PROFILE HEADER -->
+            <div class="profile-header">
+                <div class="profile-photo" id="photoContainer">
+                    <!-- Filled by JS -->
+                </div>
+                <div class="title-group">
+                    <h1 id="displayName">0x<span class="handle" id="handleName">Cyber</span></h1>
+                    <div class="tagline">
+                        <span id="taglineText">🔐 Especialista en Seguridad de Redes Sociales</span>
+                        <span class="sep">·</span>
+                        <span class="badge-skill" id="badgeLevel">EXPERTO</span>
+                    </div>
+                    <div class="success-rate" id="successRate">
+                        🏆 <span id="rateValue">98.7%</span> <span id="rateLabel">Tasa de Éxito</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STATS -->
+            <div class="stats-row">
+                <div class="stat-item">
+                    <div class="num"><span class="accent" id="statYears">7</span>+</div>
+                    <div class="label" id="statYearsLabel">Años de Experiencia</div>
+                </div>
+                <div class="stat-item">
+                    <div class="num" id="statHacks">142</div>
+                    <div class="label" id="statHacksLabel">Operaciones Exitosas</div>
+                </div>
+                <div class="stat-item">
+                    <div class="num"><span id="statBugs">386</span></div>
+                    <div class="label" id="statBugsLabel">Vulnerabilidades</div>
+                </div>
+                <div class="stat-item">
+                    <div class="num">#<span id="statRank">12</span></div>
+                    <div class="label" id="statRankLabel">Ranking Global</div>
+                </div>
+            </div>
+
+            <!-- BIO -->
+            <div class="bio" id="bioText">
+                <strong id="bioLabel">Biografía</strong><br />
+                <span id="bioContent">
+                    Investigador de seguridad de élite especializado en <span class="social-hack">hacking de redes sociales</span>,
+                    <span class="highlight-text">exploits de día cero</span> e ingeniería inversa.
+                    Más de <strong>140+ operaciones exitosas</strong> en WhatsApp, Instagram, Facebook, Telegram,
+                    Signal y Twitter. Confiado por empresas Fortune 500 y agencias gubernamentales para descubrir
+                    vulnerabilidades críticas en plataformas sociales antes de que se conviertan en brechas.
+                </span>
+            </div>
+
+            <!-- SKILLS -->
+            <div class="skills-section">
+                <div class="section-label" id="skillsLabel">Competencias Clave</div>
+                <div class="skills-grid" id="skillsContainer">
+                    <!-- filled by JS -->
+                </div>
+            </div>
+
+            <!-- SUCCESSFUL HACKS / PROOF -->
+            <div class="hacks-section">
+                <div class="section-label">
+                    <span id="hacksLabel">📋 Operaciones Exitosas y Evidencias</span>
+                    <span class="count" id="hackCount">0</span>
+                </div>
+                <div class="hacks-grid" id="hacksContainer">
+                    <!-- filled by JS -->
+                </div>
+            </div>
+
+            <!-- PROJECTS -->
+            <div class="projects-section">
+                <div class="section-label" id="projectsLabel">Herramientas y Frameworks Destacados</div>
+                <div class="projects-grid" id="projectsContainer">
+                    <!-- filled by JS -->
+                </div>
+            </div>
+
+            <!-- SOCIAL -->
+            <div class="social-row" id="socialContainer">
+                <!-- filled by JS -->
+            </div>
+
+            <div class="footer-note">
+                <span id="footerText">Perfil basado en URL · Edita la URL para cambiar nombre y foto · </span>
+                <a href="#" onclick="event.preventDefault();showHelp();">?</a>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- URL hint -->
+    <div class="url-hint" id="urlHint">
+        ?name=<span id="urlParamDisplay">Cyber</span>&amp;photo=<span id="urlPhotoDisplay">auto</span>&amp;lang=<span id="urlLangDisplay">es</span>
+    </div>
+
+    <script>
+        // ═══════════════════════════════════════════════════
+        //  SVG ICONS FOR SOCIAL MEDIA PLATFORMS
+        // ═══════════════════════════════════════════════════
+
+        const SOCIAL_ICONS = {
+            'WhatsApp': `<svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>`,
+
+            'Instagram': `<svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>`,
+
+            'Facebook': `<svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>`,
+
+            'Telegram': `<svg viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 000 12a12 12 0 0012 12 12 12 0 0012-12A12 12 0 0012 0a12 12 0 00-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 01.171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>`,
+
+            'Signal': `<svg viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 3.6c4.639 0 8.4 3.761 8.4 8.4s-3.761 8.4-8.4 8.4S3.6 16.639 3.6 12 7.361 3.6 12 3.6zm-2.8 4.2c-.662 0-1.2.538-1.2 1.2v3.6c0 .662.538 1.2 1.2 1.2h5.6c.662 0 1.2-.538 1.2-1.2V9c0-.662-.538-1.2-1.2-1.2H9.2zm1.2 1.2h3.2v2.4h-3.2V9zm-1.6 4.8h6.4v1.6H8.8V13.8z"/></svg>`,
+
+            'Twitter': `<svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>`
+        };
+
+        // ─── PLATFORM COLORS ───
+        const PLATFORM_COLORS = {
+            'WhatsApp': '#25D366',
+            'Instagram': '#E4405F',
+            'Facebook': '#1877F2',
+            'Telegram': '#0088cc',
+            'Signal': '#3A76F0',
+            'Twitter': '#000000'
+        };
+
+        // ─── DIFFERENT CONTACT NAMES PER HACK ───
+        const CONTACT_NAMES = [
+            ['Jessica M.', 'Carlos R.', 'Laura S.', 'David K.', 'Ana G.'],
+            ['Megan W.', 'Chris P.', 'Rachel L.', 'Mike R.', 'Sarah J.'],
+            ['Amanda T.', 'James H.', 'Sophie C.', 'Robert F.', 'Emma W.'],
+            ['Daniela R.', 'Tyler S.', 'Mia D.', 'Alex B.', 'Olivia N.'],
+            ['Victoria K.', 'Nathan M.', 'Zoe P.', 'Ethan T.', 'Lily R.'],
+            ['Grace L.', 'Oscar G.', 'Chloe W.', 'Liam H.', 'Ava S.']
+        ];
+
+        // ─── DIFFERENT CHEATING MESSAGES (blurred content) ───
+        const CHEATING_MESSAGES = [
+            ['Can\'t wait to see you tonight ❤️', 'He has no idea about us', 'Booked the room for Friday', 'Send me that pic again 😉', 'My partner is working late tonight'],
+            ['I miss you so much', 'Finally alone this weekend', 'Delete our chat after this', 'She can never find out', 'You\'re the only one for me 💕'],
+            ['Tonight at 8, our spot', 'He thinks I\'m with friends', 'Wear that black dress 😉', 'I can\'t stop thinking about you', 'This has to stay between us'],
+            ['She\'s gone for the weekend', 'I\'ll pick you up at 7', 'No one can know about this', 'You make me feel alive 🔥', 'He\'s texting me right now ugh'],
+            ['See you at the usual place', 'He checked my phone last night', 'I\'ll delete these messages after', 'You\'re worth the risk 💯', 'My wife has no clue'],
+            ['Can\'t wait for our trip', 'He\'s so suspicious lately', 'I think she\'s tracking my phone', 'This is our secret 🤫', 'I\'ll call you when I\'m alone']
+        ];
+
+        // ─── HACKS DATA with unique contacts per platform ───
+        const HACKS_DATA = [{
+            platform: 'WhatsApp',
+            title_en: 'WhatsApp Couple Surveillance',
+            title_es: 'Vigilancia de Pareja en WhatsApp',
+            desc_en: 'Accessed partner\'s WhatsApp messages revealing secret conversations and infidelity.',
+            desc_es: 'Acceso a mensajes de WhatsApp de la pareja revelando conversaciones secretas e infidelidad.',
+            bgColor: '#0d1a12',
+            iconColor: '#25D366',
+            contacts: CONTACT_NAMES[0],
+            messages: CHEATING_MESSAGES[0]
+        }, {
+            platform: 'Instagram',
+            title_en: 'Instagram DM Investigation',
+            title_es: 'Investigación de MD en Instagram',
+            desc_en: 'Extracted private DMs between partner and secret contacts with romantic content.',
+            desc_es: 'Extracción de MDs privados entre la pareja y contactos secretos con contenido romántico.',
+            bgColor: '#0d121a',
+            iconColor: '#E4405F',
+            contacts: CONTACT_NAMES[1],
+            messages: CHEATING_MESSAGES[1]
+        }, {
+            platform: 'Facebook',
+            title_en: 'Facebook Private Messages',
+            title_es: 'Mensajes Privados de Facebook',
+            desc_en: 'Recovered deleted Facebook messages exposing hidden relationships and plans.',
+            desc_es: 'Recuperación de mensajes de Facebook eliminados exponiendo relaciones ocultas y planes.',
+            bgColor: '#1a0d1a',
+            iconColor: '#1877F2',
+            contacts: CONTACT_NAMES[2],
+            messages: CHEATING_MESSAGES[2]
+        }, {
+            platform: 'Telegram',
+            title_en: 'Telegram Secret Chat Access',
+            title_es: 'Acceso a Chat Secreto de Telegram',
+            desc_en: 'Gained access to encrypted Telegram chats with evidence of ongoing infidelity.',
+            desc_es: 'Obtención de acceso a chats encriptados de Telegram con evidencia de infidelidad en curso.',
+            bgColor: '#0d1a1a',
+            iconColor: '#0088cc',
+            contacts: CONTACT_NAMES[3],
+            messages: CHEATING_MESSAGES[3]
+        }, {
+            platform: 'Signal',
+            title_en: 'Signal Message Recovery',
+            title_es: 'Recuperación de Mensajes de Signal',
+            desc_en: 'Recovered deleted Signal messages proving secret communications with third parties.',
+            desc_es: 'Recuperación de mensajes de Signal eliminados que prueban comunicaciones secretas con terceros.',
+            bgColor: '#1a0d12',
+            iconColor: '#3A76F0',
+            contacts: CONTACT_NAMES[4],
+            messages: CHEATING_MESSAGES[4]
+        }, {
+            platform: 'Twitter',
+            title_en: 'Twitter Private Account',
+            title_es: 'Cuenta Privada de Twitter',
+            desc_en: 'Accessed protected Twitter account revealing secret connections and private conversations.',
+            desc_es: 'Acceso a cuenta protegida de Twitter revelando conexiones secretas y conversaciones privadas.',
+            bgColor: '#0d121a',
+            iconColor: '#000000',
+            contacts: CONTACT_NAMES[5],
+            messages: CHEATING_MESSAGES[5]
+        }];
+
+        // ─── SKILLS DATA ───
+        const SKILLS_DATA = {
+            en: [
+                'Social Media Exploitation',
+                'Reverse Engineering',
+                'Zero-Day Discovery',
+                'Network Pentesting',
+                'Web App Security',
+                'Cryptanalysis'
+            ],
+            es: [
+                'Explotación de Redes Sociales',
+                'Ingeniería Inversa',
+                'Descubrimiento de Día Cero',
+                'Pruebas de Redes',
+                'Seguridad Web',
+                'Criptoanálisis'
+            ]
+        };
+
+        // ─── PROJECTS DATA ───
+        const PROJECTS_DATA = {
+            en: [
+                { name: 'SocialForge', desc: 'Social media vulnerability discovery framework', tag: 'Exploit' },
+                { name: 'GhostProtocol', desc: 'Advanced persistence and evasion toolkit', tag: 'Stealth' },
+                { name: 'NexusShield', desc: 'Enterprise-grade social media hardening suite', tag: 'Defense' },
+            ],
+            es: [
+                { name: 'SocialForge', desc: 'Framework de descubrimiento de vulnerabilidades en redes', tag: 'Exploit' },
+                { name: 'GhostProtocol', desc: 'Kit de persistencia y evasión avanzada', tag: 'Sigilo' },
+                { name: 'NexusShield', desc: 'Suite de endurecimiento empresarial para redes sociales', tag: 'Defensa' },
+            ]
+        };
+
+        // ─── SOCIAL LINKS ───
+        const SOCIAL_DATA = [
+            { icon: '🐦', label: 'Twitter', url: 'https://twitter.com/0xCyber' },
+            { icon: '💻', label: 'GitHub', url: 'https://github.com/0xCyber' },
+            { icon: '📧', label: 'ProtonMail', url: 'mailto:0xcyber@proton.me' },
+            { icon: '🔗', label: 'LinkedIn', url: 'https://linkedin.com/in/0xcyber' },
+        ];
+
+        // ─── TRANSLATIONS ───
+        const TRANSLATIONS = {
+            en: {
+                status: '● Active · Accepting Engagements',
+                statYears: 'Years Experience',
+                statHacks: 'Successful Ops',
+                statBugs: 'Vulnerabilities',
+                statRank: 'Global Rank',
+                bioLabel: 'Bio',
+                skillsLabel: 'Core Competencies',
+                hacksLabel: '📋 Successful Operations & Proof',
+                projectsLabel: 'Featured Tools & Frameworks',
+                footer: 'URL-driven profile · Edit URL to change name & photo · ',
+                rateLabel: 'Success Rate',
+                tagline: '🔐 Social Media Security Specialist',
+                level: 'EXPERT',
+                bio: `Elite security researcher specializing in <span class="social-hack">social media hacking</span>,
+                    <span class="highlight-text">zero-day exploits</span>, and reverse engineering.
+                    Over <strong>140+ successful operations</strong> across WhatsApp, Instagram, Facebook, Telegram,
+                    Signal, and Twitter. Trusted by Fortune 500 companies and government agencies to uncover
+                    critical vulnerabilities in social media platforms before they become breaches.`,
+                blurText: 'CLASSIFIED',
+                blurSub: 'EVIDENCE REDACTED',
+                verified: '✓ Verified',
+                classified: '🔒 Classified',
+                statusSuccess: 'Completed'
+            },
+            es: {
+                status: '● Activo · Aceptando Compromisos',
+                statYears: 'Años de Experiencia',
+                statHacks: 'Operaciones Exitosas',
+                statBugs: 'Vulnerabilidades',
+                statRank: 'Ranking Global',
+                bioLabel: 'Biografía',
+                skillsLabel: 'Competencias Clave',
+                hacksLabel: '📋 Operaciones Exitosas y Evidencias',
+                projectsLabel: 'Herramientas y Frameworks Destacados',
+                footer: 'Perfil basado en URL · Edita la URL para cambiar nombre y foto · ',
+                rateLabel: 'Tasa de Éxito',
+                tagline: '🔐 Especialista en Seguridad de Redes Sociales',
+                level: 'EXPERTO',
+                bio: `Investigador de seguridad de élite especializado en <span class="social-hack">hacking de redes sociales</span>,
+                    <span class="highlight-text">exploits de día cero</span> e ingeniería inversa.
+                    Más de <strong>140+ operaciones exitosas</strong> en WhatsApp, Instagram, Facebook, Telegram,
+                    Signal y Twitter. Confiado por empresas Fortune 500 y agencias gubernamentales para descubrir
+                    vulnerabilidades críticas en plataformas sociales antes de que se conviertan en brechas.`,
+                blurText: 'CLASIFICADO',
+                blurSub: 'EVIDENCIA REDACTADA',
+                verified: '✓ Verificado',
+                classified: '🔒 Clasificado',
+                statusSuccess: 'Completado'
+            }
+        };
+
+        // ─── STATE ───
+        let currentLang = 'es';
+        let currentName = 'Cyber';
+        let currentPhoto = null;
+        let currentTheme = 'light';
+
+        // ─── DOM refs ───
+        const photoContainer = document.getElementById('photoContainer');
+        const displayNameEl = document.getElementById('displayName');
+        const handleNameEl = document.getElementById('handleName');
+        const taglineText = document.getElementById('taglineText');
+        const badgeLevelEl = document.getElementById('badgeLevel');
+        const rateValue = document.getElementById('rateValue');
+        const rateLabel = document.getElementById('rateLabel');
+        const statYearsEl = document.getElementById('statYears');
+        const statHacksEl = document.getElementById('statHacks');
+        const statBugsEl = document.getElementById('statBugs');
+        const statRankEl = document.getElementById('statRank');
+        const statYearsLabel = document.getElementById('statYearsLabel');
+        const statHacksLabel = document.getElementById('statHacksLabel');
+        const statBugsLabel = document.getElementById('statBugsLabel');
+        const statRankLabel = document.getElementById('statRankLabel');
+        const bioContent = document.getElementById('bioContent');
+        const bioLabel = document.getElementById('bioLabel');
+        const skillsLabel = document.getElementById('skillsLabel');
+        const skillsContainer = document.getElementById('skillsContainer');
+        const hacksContainer = document.getElementById('hacksContainer');
+        const hackCount = document.getElementById('hackCount');
+        const hacksLabel = document.getElementById('hacksLabel');
+        const projectsLabel = document.getElementById('projectsLabel');
+        const projectsContainer = document.getElementById('projectsContainer');
+        const socialContainer = document.getElementById('socialContainer');
+        const urlParamDisplay = document.getElementById('urlParamDisplay');
+        const urlPhotoDisplay = document.getElementById('urlPhotoDisplay');
+        const urlLangDisplay = document.getElementById('urlLangDisplay');
+        const themeIcon = document.getElementById('themeIcon');
+        const themeLabel = document.getElementById('themeLabel');
+        const statusText = document.getElementById('statusText');
+        const footerText = document.getElementById('footerText');
+
+        // ─── Generate chat items with unique names and blurred messages ───
+        function generateChatItems(contacts, messages, count) {
+            let items = '';
+            const avatarEmojis = ['👤', '👨', '👩', '🧑', '👤', '👨', '👩', '🧑'];
+            for (let i = 0; i < count && i < contacts.length; i++) {
+                const name = contacts[i % contacts.length];
+                const msg = messages[i % messages.length];
+                const time = ['10:32', '10:15', '09:54', '09:22', '08:47', '08:10', '07:55', '07:30'][i % 8];
+                const avatarEmoji = avatarEmojis[i % avatarEmojis.length];
+                items += `
+                    <div class="chat-item">
+                        <div class="avatar">${avatarEmoji}</div>
+                        <div class="info">
+                            <div class="name">${name}</div>
+                            <div class="msg">${msg}</div>
+                        </div>
+                        <div class="time">${time}</div>
+                    </div>
+                `;
+            }
+            return items;
+        }
+
+        // ─── Get SVG icon for platform ───
+        function getPlatformIcon(platform, color) {
+            const svg = SOCIAL_ICONS[platform] || SOCIAL_ICONS['WhatsApp'];
+            return svg.replace(/<path/g, `<path fill="${color}"`).replace(/<svg/g, `<svg style="width:100%;height:100%;"`);
+        }
+
+        // ─── render profile ───
+        function renderProfile(name, photo) {
+            const displayName = name || 'Cyber';
+            const photoUrl = photo || null;
+            const t = TRANSLATIONS[currentLang] || TRANSLATIONS.es;
+            const skills = SKILLS_DATA[currentLang] || SKILLS_DATA.es;
+            const projects = PROJECTS_DATA[currentLang] || PROJECTS_DATA.es;
+
+            // ── Name ──
+            const cleanName = displayName.replace(/[^a-zA-Z0-9_\- ]/g, '').trim() || 'Cyber';
+            displayNameEl.innerHTML = '0x<span class="handle" id="handleName">' + cleanName + '</span>';
+            handleNameEl.textContent = cleanName;
+
+            // ── Tagline ──
+            taglineText.textContent = t.tagline;
+            badgeLevelEl.textContent = t.level;
+            rateValue.textContent = '98.7%';
+            rateLabel.textContent = t.rateLabel;
+
+            // ── Stats ──
+            statYearsEl.textContent = '7';
+            statHacksEl.textContent = '142';
+            statBugsEl.textContent = '386';
+            statRankEl.textContent = '12';
+            statYearsLabel.textContent = t.statYears;
+            statHacksLabel.textContent = t.statHacks;
+            statBugsLabel.textContent = t.statBugs;
+            statRankLabel.textContent = t.statRank;
+
+            // ── Status ──
+            statusText.textContent = t.status;
+
+            // ── Bio ──
+            bioLabel.textContent = t.bioLabel;
+            bioContent.innerHTML = t.bio;
+
+            // ── Skills Label ──
+            skillsLabel.textContent = t.skillsLabel;
+
+            // ── Skills ──
+            skillsContainer.innerHTML = '';
+            skills.forEach(skill => {
+                const tag = document.createElement('span');
+                tag.className = 'skill-tag';
+                tag.textContent = skill;
+                skillsContainer.appendChild(tag);
+            });
+
+            // ── Hacks Label ──
+            hacksLabel.textContent = t.hacksLabel;
+
+            // ── Hacks / Proof with unique contacts per hack ──
+            hacksContainer.innerHTML = '';
+            HACKS_DATA.forEach((hack, index) => {
+                const card = document.createElement('div');
+                card.className = 'hack-card';
+                const title = currentLang === 'es' ? hack.title_es : hack.title_en;
+                const desc = currentLang === 'es' ? hack.desc_es : hack.desc_en;
+                const iconSvg = getPlatformIcon(hack.platform, hack.iconColor);
+                const chatItems = generateChatItems(hack.contacts, hack.messages, 5 + (index % 3));
+
+                card.innerHTML = `
+                    <div class="hack-image">
+                        <div class="proof-container">
+                            <!-- Dashboard with VISIBLE names, BLURRED messages -->
+                            <div class="dashboard-bg" style="background: ${hack.bgColor};">
+                                <div class="db-top">
+                                    <span class="db-title">
+                                        <span class="brand-icon">${iconSvg}</span>
+                                        ${hack.platform} • <span style="color:#888;">Web</span>
+                                    </span>
+                                    <span class="db-status">● Connected</span>
+                                </div>
+                                <div class="db-chats">
+                                    ${chatItems}
+                                </div>
+                            </div>
+                            <!-- Overlay -->
+                            <div class="blur-overlay">
+                                <span class="blur-icon">${iconSvg}</span>
+                                <span class="blur-text">${t.blurText}</span>
+                                <span class="blur-sub">${t.blurSub}</span>
+                            </div>
+                            <span class="redacted-stamp">REDACTED</span>
+                            <span class="platform-badge">${hack.platform}</span>
+                            <span class="verified-badge">${t.verified}</span>
+                        </div>
+                    </div>
+                    <div class="hack-body">
+                        <div class="hack-title">${title}</div>
+                        <div class="hack-desc">${desc}</div>
+                        <div class="hack-meta">
+                            <span class="status-success">${t.statusSuccess}</span>
+                            <span>${t.classified}</span>
+                        </div>
+                    </div>
+                `;
+                hacksContainer.appendChild(card);
+            });
+            hackCount.textContent = HACKS_DATA.length;
+
+            // ── Projects Label ──
+            projectsLabel.textContent = t.projectsLabel;
+
+            // ── Projects ──
+            projectsContainer.innerHTML = '';
+            projects.forEach(proj => {
+                const card = document.createElement('div');
+                card.className = 'project-card';
+                card.innerHTML = `
+                    <div class="p-name">${proj.name}</div>
+                    <div class="p-desc">${proj.desc}</div>
+                    <span class="p-tag">${proj.tag}</span>
+                `;
+                projectsContainer.appendChild(card);
+            });
+
+            // ── Social ──
+            socialContainer.innerHTML = '';
+            SOCIAL_DATA.forEach(soc => {
+                const a = document.createElement('a');
+                a.className = 'social-link';
+                a.href = soc.url;
+                a.target = '_blank';
+                a.innerHTML = `<span class="icon">${soc.icon}</span> ${soc.label}`;
+                socialContainer.appendChild(a);
+            });
+
+            // ── Footer ──
+            footerText.textContent = t.footer;
+
+            // ── Photo ──
+            photoContainer.innerHTML = '';
+            if (photoUrl && photoUrl.startsWith('http')) {
+                const img = document.createElement('img');
+                img.src = photoUrl;
+                img.alt = cleanName;
+                img.loading = 'lazy';
+                img.onerror = function() {
+                    this.parentElement.innerHTML = '';
+                    const div = document.createElement('div');
+                    div.className = 'placeholder';
+                    div.textContent = cleanName.substring(0, 2).toUpperCase();
+                    const colors = ['#d4e9de', '#d4dce9', '#e8d4e9', '#f0e4d4', '#d4e4f0'];
+                    div.style.background = colors[cleanName.length % colors.length];
+                    photoContainer.appendChild(div);
+                };
+                photoContainer.appendChild(img);
+            } else {
+                const div = document.createElement('div');
+                div.className = 'placeholder';
+                div.textContent = cleanName.substring(0, 2).toUpperCase();
+                const colors = ['#d4e9de', '#d4dce9', '#e8d4e9', '#f0e4d4', '#d4e4f0'];
+                div.style.background = colors[cleanName.length % colors.length];
+                photoContainer.appendChild(div);
+            }
+
+            // ── URL hint ──
+            urlParamDisplay.textContent = cleanName;
+            urlPhotoDisplay.textContent = photoUrl ? 'custom' : 'auto';
+            urlLangDisplay.textContent = currentLang;
+
+            // Update theme labels
+            const themeLabelEl = document.getElementById('themeLabel');
+            if (currentTheme === 'dark') {
+                themeLabelEl.textContent = currentLang === 'es' ? 'Claro' : 'Light';
+            } else {
+                themeLabelEl.textContent = currentLang === 'es' ? 'Oscuro' : 'Dark';
+            }
+        }
+
+        // ─── Language ───
+        function setLang(lang) {
+            if (lang === currentLang) return;
+            currentLang = lang;
+            document.querySelectorAll('.lang-toggle button').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.lang === lang);
+            });
+            renderProfile(currentName, currentPhoto);
+            updateURL();
+        }
+
+        // ─── URL handling ───
+        function getURLParams() {
+            const params = new URLSearchParams(window.location.search);
+            return {
+                name: params.get('name') || 'Cyber',
+                photo: params.get('photo') || null,
+                lang: params.get('lang') || 'es'
+            };
+        }
+
+        function updateURL() {
+            const url = new URL(window.location);
+            url.searchParams.set('name', currentName);
+            if (currentPhoto) {
+                url.searchParams.set('photo', currentPhoto);
+            } else {
+                url.searchParams.delete('photo');
+            }
+            url.searchParams.set('lang', currentLang);
+            window.history.replaceState({}, '', url);
+        }
+
+        function loadFromURL() {
+            const params = getURLParams();
+            let name = params.name.trim() || 'Cyber';
+            let photo = params.photo || null;
+            let lang = params.lang.toLowerCase().trim();
+            if (!['en', 'es'].includes(lang)) lang = 'es';
+
+            currentLang = lang;
+            currentName = name;
+            currentPhoto = photo;
+
+            document.querySelectorAll('.lang-toggle button').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.lang === lang);
+            });
+
+            renderProfile(name, photo);
+        }
+
+        // ─── Help ───
+        function showHelp() {
+            const t = TRANSLATIONS[currentLang] || TRANSLATIONS.es;
+            alert(
+                '🔧 ' + (currentLang === 'es' ? 'Perfil Basado en URL' : 'URL-Driven Profile') + '\n\n' +
+                (currentLang === 'es' ?
+                    'Solo 3 cosas son editables vía URL:\n\n' +
+                    '1. ?name=TuNombre     → Cambia el nombre mostrado\n' +
+                    '2. ?photo=URL_IMAGEN  → Cambia la foto de perfil\n' +
+                    '3. ?lang=en  o  ?lang=es  → Cambia el idioma\n\n' +
+                    'Ejemplo:\n' +
+                    window.location.origin + window.location.pathname +
+                    '?name=Shadow&photo=https://i.pravatar.cc/300?img=11&lang=es\n\n' +
+                    'Todo lo demás (biografía, habilidades, operaciones) es estático.' :
+                    'Only 3 things are editable via URL:\n\n' +
+                    '1. ?name=YourName     → Changes the displayed name\n' +
+                    '2. ?photo=IMAGE_URL   → Changes the profile photo\n' +
+                    '3. ?lang=en  or  ?lang=es  → Changes language\n\n' +
+                    'Example:\n' +
+                    window.location.origin + window.location.pathname +
+                    '?name=Shadow&photo=https://i.pravatar.cc/300?img=11&lang=es\n\n' +
+                    'Everything else (bio, skills, hacks, projects) is static.'
+                )
+            );
+        }
+
+        // ─── Expose ───
+        window.setLang = setLang;
+        window.showHelp = showHelp;
+        window.toggleTheme = toggleTheme;
+
+        // ─── Theme ───
+        function toggleTheme() {
+            const html = document.documentElement;
+            if (html.getAttribute('data-theme') === 'dark') {
+                html.removeAttribute('data-theme');
+                currentTheme = 'light';
+                themeIcon.textContent = '🌙';
+                themeLabel.textContent = currentLang === 'es' ? 'Oscuro' : 'Dark';
+            } else {
+                html.setAttribute('data-theme', 'dark');
+                currentTheme = 'dark';
+                themeIcon.textContent = '☀️';
+                themeLabel.textContent = currentLang === 'es' ? 'Claro' : 'Light';
+            }
+            localStorage.setItem('theme', currentTheme);
+        }
+
+        function loadTheme() {
+            const saved = localStorage.getItem('theme') || 'light';
+            if (saved === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                currentTheme = 'dark';
+                themeIcon.textContent = '☀️';
+                themeLabel.textContent = currentLang === 'es' ? 'Claro' : 'Light';
+            } else {
+                document.documentElement.removeAttribute('data-theme');
+                currentTheme = 'light';
+                themeIcon.textContent = '🌙';
+                themeLabel.textContent = currentLang === 'es' ? 'Oscuro' : 'Dark';
+            }
+        }
+
+        // ─── Init ───
+        loadTheme();
+        loadFromURL();
+        window.addEventListener('popstate', loadFromURL);
+
+        console.log('🔐 Hacker Portfolio loaded.');
+        console.log('Editable via URL: ?name=YourName&photo=IMAGE_URL&lang=en');
+        console.log('Current language:', currentLang);
+        console.log('✅ Each hack shows DIFFERENT contact names with BLURRED cheating messages.');
+    </script>
+</body>
+</html>
